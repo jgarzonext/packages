@@ -1,0 +1,21 @@
+--------------------------------------------------------
+--  DDL for Function F_SYSDATE
+--------------------------------------------------------
+
+  CREATE OR REPLACE EDITIONABLE FUNCTION "AXIS"."F_SYSDATE" RETURN DATE authid current_user IS
+--
+-- FUNCIÓN CREADA PARA SER LLAMADA DESDE LOS FORMS Y REPORTS
+-- CUANDO SE DESEE OBTENER LA FECHA DEL SISTEMA DEL SERVIDOR
+--
+BEGIN
+  RETURN SYSDATE;
+END;
+
+ 
+ 
+
+/
+
+  GRANT EXECUTE ON "AXIS"."F_SYSDATE" TO "R_AXIS";
+  GRANT EXECUTE ON "AXIS"."F_SYSDATE" TO "CONF_DWH";
+  GRANT EXECUTE ON "AXIS"."F_SYSDATE" TO "PROGRAMADORESCSI";

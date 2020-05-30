@@ -1,0 +1,20 @@
+--------------------------------------------------------
+--  DDL for Function F_CNVPRODUCTOS_MV
+--------------------------------------------------------
+
+  CREATE OR REPLACE EDITIONABLE FUNCTION "AXIS"."F_CNVPRODUCTOS_MV" (PSPRODUC NUMBER) RETURN VARCHAR2 IS
+ DESCRIP  CNVPRODUCTOS_EXT.CNV_SPR%TYPE;
+
+BEGIN
+
+  RETURN f_cnvproductos_ext(psproduc);
+
+END F_CNVPRODUCTOS_MV; 
+ 
+ 
+
+/
+
+  GRANT EXECUTE ON "AXIS"."F_CNVPRODUCTOS_MV" TO "R_AXIS";
+  GRANT EXECUTE ON "AXIS"."F_CNVPRODUCTOS_MV" TO "CONF_DWH";
+  GRANT EXECUTE ON "AXIS"."F_CNVPRODUCTOS_MV" TO "PROGRAMADORESCSI";

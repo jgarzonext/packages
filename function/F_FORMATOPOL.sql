@@ -1,0 +1,33 @@
+--------------------------------------------------------
+--  DDL for Function F_FORMATOPOL
+--------------------------------------------------------
+
+  CREATE OR REPLACE EDITIONABLE FUNCTION "AXIS"."F_FORMATOPOL" (PNPOLIZA IN NUMBER, PNCERTIF IN NUMBER,
+PNFORMAT IN NUMBER) RETURN VARCHAR2 authid current_user IS
+/***************************************************************************
+	F_FORMATOPOL : FORMATEA UN NÚMERO DE PÓLIZA Y CERTIFICADO SEGUN EL
+			   FORMATO ESPECIFICADO: PNFORMAT = 1
+							 PNFORMAT = 2
+			   NO DEVUELVE ERROR, SE OBTIENE DIRECTAMENTE EL RESULTADO.
+	ALLIBMFM
+****************************************************************************/
+	SALIDA	VARCHAR2(25);
+BEGIN
+IF PNFORMAT = 1 THEN
+IF PNCERTIF = 0 THEN
+	SALIDA := TO_CHAR(PNPOLIZA);
+ELSE
+	SALIDA := TO_CHAR(PNPOLIZA)||'-'||TO_CHAR(PNCERTIF);
+END IF;
+RETURN SALIDA;
+--ELSIF PNFORMAT = 2 THEN   --- A DEFINIR CUANDO SE NECESITE
+END IF;
+END;
+ 
+ 
+
+/
+
+  GRANT EXECUTE ON "AXIS"."F_FORMATOPOL" TO "R_AXIS";
+  GRANT EXECUTE ON "AXIS"."F_FORMATOPOL" TO "CONF_DWH";
+  GRANT EXECUTE ON "AXIS"."F_FORMATOPOL" TO "PROGRAMADORESCSI";

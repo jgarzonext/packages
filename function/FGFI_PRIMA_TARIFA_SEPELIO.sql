@@ -1,0 +1,51 @@
+--------------------------------------------------------
+--  DDL for Function FGFI_PRIMA_TARIFA_SEPELIO
+--------------------------------------------------------
+
+  CREATE OR REPLACE EDITIONABLE FUNCTION "AXIS"."FGFI_PRIMA_TARIFA_SEPELIO" (sesion IN NUMBER) RETURN NUMBER IS
+
+CAPITAL NUMBER;
+FECEFE NUMBER;
+FEFEPOL NUMBER;
+GARANTIA NUMBER;
+NRIESGO NUMBER;
+PBENEF NUMBER;
+PINTTEC NUMBER;
+SEXO NUMBER;
+SSEGURO NUMBER;
+DX_GK80 NUMBER;
+ANYO NUMBER;
+PRIMA_TARIFA_SEPELIO NUMBER;
+RETORNO NUMBER;
+
+BEGIN
+
+
+CAPITAL:= pac_GFI.f_sgt_parms ('CAPITAL', sesion);
+FECEFE:= pac_GFI.f_sgt_parms ('FECEFE', sesion);
+FEFEPOL:= pac_GFI.f_sgt_parms ('FEFEPOL', sesion);
+GARANTIA:= pac_GFI.f_sgt_parms ('GARANTIA', sesion);
+NRIESGO:= pac_GFI.f_sgt_parms ('NRIESGO', sesion);
+PBENEF:= pac_GFI.f_sgt_parms ('PBENEF', sesion);
+PINTTEC:= pac_GFI.f_sgt_parms ('PINTTEC', sesion);
+SEXO:= pac_GFI.f_sgt_parms ('SEXO', sesion);
+SSEGURO:= pac_GFI.f_sgt_parms ('SSEGURO', sesion);
+DX_GK80 := (FSIMBOLCONMU(sesion, 1,PINTTEC/100, RESP(sesion, 1), SEXO, 4));
+Pac_Gfi.p_grabar_rastro (sesion, 'DX_GK80', DX_GK80, 0);
+ANYO := (TRUNC(MONTHS_BETWEEN(TO_DATE(FECEFE,'YYYYMMDD'),TO_DATE(FEFEPOL,'YYYYMMDD'))/12) + 1);
+Pac_Gfi.p_grabar_rastro (sesion, 'ANYO', ANYO, 0);
+SELECT (((CAPITAL*(FSIMBOLCONMU(sesion, 1,PINTTEC/100, RESP(sesion, 1), SEXO, 9))/DX_GK80)-NVL(((NVL(FIPROV_T0(sesion, SSEGURO, NRIESGO, GARANTIA, ANYO-1) ,0)+ NVL(FIPROV_T1(sesion, SSEGURO, NRIESGO, GARANTIA, ANYO-1),0)/2)*PBENEF/100),0)-NVL(FIPROV_T1(sesion, SSEGURO, NRIESGO, GARANTIA,ANYO-1),0))/((FSIMBOLCONMU(sesion, 1,PINTTEC/100, RESP(sesion, 1), SEXO, 6))/DX_GK80))/(1-VTRAMO(sesion, 304,DECODE(SEXO,2,RESP(sesion, 3)-5, RESP(sesion, 3)))/100) +          6.48 INTO PRIMA_TARIFA_SEPELIO FROM DUAL;
+Pac_Gfi.p_grabar_rastro (sesion, 'PRIMA_TARIFA_SEPELIO', PRIMA_TARIFA_SEPELIO, 0);
+Retorno := PRIMA_TARIFA_SEPELIO;
+RETURN Retorno;
+
+END;
+
+ 
+ 
+
+/
+
+  GRANT EXECUTE ON "AXIS"."FGFI_PRIMA_TARIFA_SEPELIO" TO "R_AXIS";
+  GRANT EXECUTE ON "AXIS"."FGFI_PRIMA_TARIFA_SEPELIO" TO "CONF_DWH";
+  GRANT EXECUTE ON "AXIS"."FGFI_PRIMA_TARIFA_SEPELIO" TO "PROGRAMADORESCSI";

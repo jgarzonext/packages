@@ -1,0 +1,33 @@
+--------------------------------------------------------
+--  DDL for Function F_PARLIBRETA
+--------------------------------------------------------
+
+  CREATE OR REPLACE EDITIONABLE FUNCTION "AXIS"."F_PARLIBRETA" (pCPARAME IN VARCHAR2, PNSALIDA OUT NUMBER, PTSALIDA OUT VARCHAR2 )
+RETURN VARCHAR2 AUTHID current_user IS
+
+    vTVALPAR VARCHAR2(100) := '';
+    VNVALPAR NUMBER;
+BEGIN
+    SELECT TVALPAR, NVALPAR
+    INTO   vTVALPAR, VNVALPAR
+    FROM   parlibreta
+    WHERE  CPARAME = UPPER(pCPARAME);
+
+	ptsalida := vtvalpar;
+	pnsalida := vnvalpar;
+	RETURN 0;
+
+EXCEPTION
+      WHEN NO_DATA_FOUND THEN
+           RETURN -1;
+
+END;
+
+ 
+ 
+
+/
+
+  GRANT EXECUTE ON "AXIS"."F_PARLIBRETA" TO "R_AXIS";
+  GRANT EXECUTE ON "AXIS"."F_PARLIBRETA" TO "CONF_DWH";
+  GRANT EXECUTE ON "AXIS"."F_PARLIBRETA" TO "PROGRAMADORESCSI";

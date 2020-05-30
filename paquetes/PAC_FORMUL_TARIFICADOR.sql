@@ -1,0 +1,50 @@
+--------------------------------------------------------
+--  DDL for Package PAC_FORMUL_TARIFICADOR
+--------------------------------------------------------
+
+  CREATE OR REPLACE EDITIONABLE PACKAGE "AXIS"."PAC_FORMUL_TARIFICADOR" AUTHID CURRENT_USER IS
+   FUNCTION iniciarparametros(psesion IN NUMBER)
+      RETURN NUMBER;
+
+   FUNCTION dx1(psesion IN NUMBER, a NUMBER)
+      RETURN NUMBER;
+
+   FUNCTION dxn(psesion IN NUMBER, a NUMBER)
+      RETURN NUMBER;
+
+   FUNCTION nxn(psesion IN NUMBER, a NUMBER)
+      RETURN NUMBER;
+
+   FUNCTION nx(psesion IN NUMBER, a NUMBER)
+      RETURN NUMBER;
+
+   FUNCTION dx(psesion IN NUMBER, a NUMBER)
+      RETURN NUMBER;
+
+   FUNCTION cuenta
+      RETURN NUMBER;
+
+   FUNCTION rxn(psesion IN NUMBER, a NUMBER)
+      RETURN NUMBER;
+
+   FUNCTION rx(psesion IN NUMBER, a NUMBER)
+      RETURN NUMBER;
+
+   FUNCTION mxn(psesion IN NUMBER, a NUMBER)
+      RETURN NUMBER;
+
+   FUNCTION mx(psesion IN NUMBER, a NUMBER)
+      RETURN NUMBER;
+
+   FUNCTION sxn(psesion IN NUMBER, a NUMBER)
+      RETURN NUMBER;
+
+   FUNCTION sx(psesion IN NUMBER, a NUMBER)
+      RETURN NUMBER;
+END pac_formul_tarificador;
+
+/
+
+  GRANT EXECUTE ON "AXIS"."PAC_FORMUL_TARIFICADOR" TO "R_AXIS";
+  GRANT EXECUTE ON "AXIS"."PAC_FORMUL_TARIFICADOR" TO "CONF_DWH";
+  GRANT EXECUTE ON "AXIS"."PAC_FORMUL_TARIFICADOR" TO "PROGRAMADORESCSI";
